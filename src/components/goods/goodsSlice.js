@@ -10,7 +10,7 @@ import { SelectCurrencyPrice } from "./goodsListItem";
 const initialState = {
 
     userName: "",
-    urlJson: "https://funny-shop-api.herokuapp.com",
+    urlJson: "https://funny-shop-api.onrender.com",
     // urlJson: "http://localhost:3004",
 
     goods: [],
