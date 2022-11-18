@@ -294,14 +294,14 @@ const goodsSlice = createSlice({
             .addCase(addFavoriteItemToData.fulfilled, (state, action) => {
                 state.favoriteItems = [...state.favoriteItems, action.payload]
 
-                state.favoriteCounter = state.favoriteItems.length
+                state.favoriteCounter += 1
 
     
             })
             .addCase(removeFavoriteItemToData.fulfilled, (state, action) => {
                 state.favoriteItems = state.favoriteItems.filter(item => item.id !== action.meta.arg)
 
-                state.favoriteCounter = state.favoriteItems.length
+                state.favoriteCounter = state.favoriteCounter - 1
 
     
             })
