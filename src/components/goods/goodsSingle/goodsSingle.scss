@@ -1,0 +1,50 @@
+.singleGoods{
+    
+    &__block{
+        margin: 40px 0;
+    }
+    &__wrapper{
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 40px;
+
+    }
+    &__content{
+        padding: 20px;
+
+    }
+    &__title{
+        font-weight: 600;
+        font-size: 25px;
+        margin-bottom: 40px;
+        color: var(--input);
+    }
+    &__descr{
+        font-weight: 400;
+        font-size: 20px;
+        margin-bottom: 40px;
+
+    }
+    &__price{
+        font-weight: 600;
+        font-size: 25px;
+
+    }
+    &__img{
+        // margin-right: 20px;
+        padding: 10px;
+        overflow: hidden;
+        border-radius: 30px;
+        background: #fff;
+        width: 100%;
+        
+        img{
+            height: 500px;
+
+            max-width: 100%;
+        }
+    }
+    &__sale{
+
+    }
+}

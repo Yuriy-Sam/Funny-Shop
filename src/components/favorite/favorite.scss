@@ -1,0 +1,154 @@
+.favoritePage{
+    &__wrapper{
+        display: flex;
+        justify-content: space-between;
+        min-height: 100vh;
+
+        background: var(--background);
+
+    }
+}
+
+.favoriteList{
+
+    &__wrapper{
+        margin: 0 auto;
+        padding-bottom: 50px;
+        min-width: 100%;
+
+    }
+}
+
+
+
+.favoriteListItem{
+    text-align: left;
+    color: var(--background);
+    display: flex;
+    height: 200px;
+    max-width: 100%;
+    background: var(--input);
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+    &__img{
+        width: 400px;
+        max-height: 100%;
+        padding: 5px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+    
+        }
+    }
+    &__end{
+        min-width: 150px;
+        
+        &__title{
+            text-transform: uppercase;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+    }
+    &:not(:last-child){
+        margin-bottom: 20px;
+    }
+    &__title{
+        font-size: 30px;
+        margin-bottom: 20px;
+
+    }
+    &__text{
+        font-size: 20px;
+    }
+    &__price{
+        font-weight: 600;
+        font-size: 30px;
+        &_old{
+            font-size: 18px;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+    }
+    &__body{
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__content{
+        height: 100%;
+        // padding: 20px;
+
+    }
+    &__nav{
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        margin-bottom: 10px;
+
+    }
+    &__counter{
+        font-size: 30px;
+        padding: 0 10px;
+
+    }
+    &__plus{
+        // padding: 10px;
+
+        line-height: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        span{
+            font-size: 30px;
+            margin-top: -5px;
+            position: absolute;
+            line-height: 0px;
+        }
+    }
+    &__close{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        font-weight: 600;
+        font-size: 15px;
+    }
+    &__btn{
+        position: relative;
+        width: 150px;
+        height: 50px;
+        padding: 10px;
+        font-size: 20px;
+        font-weight: 600;
+        border-radius: 20px;
+        &:not(:last-child){
+            margin-bottom: 10px;
+        }
+        svg{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__addCart{
+        // position: absolute;
+        // top: 50%;
+        // width: 50px;
+        // height: 30px;
+
+    }
+}

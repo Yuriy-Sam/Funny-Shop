@@ -1,0 +1,41 @@
+.mainPage{
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    &__theme{
+        &__btn{
+            padding: 30px;
+            border-radius: 100%;
+            border: 2px solid var(--text-primary);
+            margin-bottom: 20px;
+            &:not(:last-child){
+                margin-right: 20px;
+            }
+        }
+        &__title{
+            margin-bottom: 20px;
+        }
+    }
+    input{
+        width: 300px;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        font-size: 20px;
+        background: var(--input);
+
+    }
+    label{
+        margin-top: 20px;
+
+        display: block;
+        margin-bottom: 10px;
+    }
+    &_form{
+        margin: 40px 0;
+    }
+}

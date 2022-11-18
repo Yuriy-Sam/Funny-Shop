@@ -1,0 +1,94 @@
+.header{
+    padding:  20px;
+    color: var(--background);
+    background-color: var(--input);
+    font-weight: 500;
+    font-size: 16px;
+    &__wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    
+    }
+    &__logo{
+        font-size: 20px;
+        font-weight: 600;
+
+    }
+    &__list{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    
+        &__item{
+            &:not(:last-child){
+                margin-right: 15px;
+            }
+        }
+    }
+    &__end{
+        display: flex;
+        align-items: center;
+
+    }
+    &__profile{
+        margin-left: 20px;
+
+    }
+    &__icons{
+        margin-left: 20px;
+        position: relative;
+        &__counter{
+            position: absolute;
+            background: #fff;
+            padding: 3px;
+            top: -10px;
+            right: -10px;
+            border-radius: 100%;
+            font-size: 14px;
+            min-width: 20px;
+            min-height: 20px;
+            visibility: visible;
+            
+        }
+        svg{
+            width: 25px;
+            height: 25px;
+            fill: var(--background);
+        }
+    }
+}
+
+.react-select{
+    &-container{
+    }
+    &__control{
+        .css-1s2u09g-control{
+            border-radius: 20px;
+        }
+    }
+    &__value-container{
+
+    }
+    &__indicators{
+        // width: 20%;
+        
+
+    }
+    &__menu{
+        &-list{
+
+        }
+
+    }
+    &__option{
+
+        
+
+    }
+    &__single-value{
+
+    }
+
+}
