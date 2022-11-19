@@ -27,15 +27,20 @@ const GoodsList = () => {
     //     }
     // );
 
-    const {filterSearchItems,   filteredGoods, goods, cartItems, favoriteItems, newCartItem, goodsLoadingStatus } = useSelector(state => state.goods);
+    const {filterSearchItems, cartLoadingStatus, favoriteLoadingStatus,   filteredGoods, goods, cartItems, favoriteItems, newCartItem, goodsLoadingStatus } = useSelector(state => state.goods);
 
     const dispatch = useDispatch();
     const {request} = useHttp();
 
     const selectPrice = '';
+    const [cartStatus, setCartStatus] = useState(false);
+    const [favoriteStatus, setFavoriteStatus] = useState(false)
 
 
-
+    useEffect(() => {
+        setCartStatus(cartLoadingStatus === "loading")
+        setFavoriteStatus(favoriteLoadingStatus === "loading")
+    }, [cartLoadingStatus, favoriteLoadingStatus]);
     useEffect(() => {
         
         dispatch(fetchGoods());
@@ -124,10 +129,10 @@ const GoodsList = () => {
                         favoriteItemCreated={() => favoriteItemCreated(id)} 
                         changeAddIcon={changeAddIcon(id)}
                         changeFavoriteIcon={changeFavoriteIcon(id)} 
-                        // addToCart={() => dispatch(cartItemCreated(id))}
                         addToCart={() => addToCart(id)}
-                        // addToCart={() => dispatch(addCartItemToData(filteredGoods.filter(item => item.id === id)[0]))} 
                         getGoodsId={getGoodsId(id)}
+                        favoriteStatus={favoriteStatus}
+                        cartStatus={cartStatus}
                         {...props}/>
 
                 </CSSTransition>
@@ -146,6 +151,13 @@ const GoodsList = () => {
                     {elements}
 
                 </div>
+                {/* <div className="goodsListItem__pages">
+                    <button className="goodsListItem__pages__item">1</button>   
+                    <button className="goodsListItem__pages__item">2</button>   
+                    <button className="goodsListItem__pages__item">3</button>   
+                    <button className="goodsListItem__pages__item">4</button>   
+
+                </div> */}
             </div>
 
         </TransitionGroup>

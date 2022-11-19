@@ -22,7 +22,7 @@ export const SelectCurrencyPrice = (price, counter) => {
         
     }
 };
-const GoodsListItem = ({name, descr, img, price, sale, addToCart, changeFavoriteIcon, changeAddIcon, favoriteItemCreated, getGoodsId}) => {
+const GoodsListItem = ({name, descr, img, price, sale, addToCart, changeFavoriteIcon, changeAddIcon, favoriteItemCreated, getGoodsId, favoriteStatus, cartStatus}) => {
 
     const [added, setAdded] = useState(changeAddIcon);
     // switch (element) {
@@ -92,11 +92,11 @@ const GoodsListItem = ({name, descr, img, price, sale, addToCart, changeFavorite
             <div className="goodsListItem__overflow">
                 {
                     changeFavoriteIcon ? (
-                        <button style={{background: "var(--positive)"}} onClick={favoriteItemCreated} type="button" className="goodsListItem__overflow__btn addLike" aria-label="Close">
+                        <button disabled={favoriteStatus} style={{background: "var(--positive)"}} onClick={favoriteItemCreated} type="button" className="goodsListItem__overflow__btn addLike" aria-label="Close">
                             <IcoLike color="var(--negative)" className="addLike"/>
                         </button>
                     ) : (
-                        <button onClick={favoriteItemCreated} type="button" className="goodsListItem__overflow__btn addLike" aria-label="Close">
+                        <button disabled={favoriteStatus} onClick={favoriteItemCreated} type="button" className="goodsListItem__overflow__btn addLike" aria-label="Close">
                             <IcoAddLike className="addLike"/>
                         </button>
                     )
@@ -105,12 +105,12 @@ const GoodsListItem = ({name, descr, img, price, sale, addToCart, changeFavorite
                 {/* <button onClick={addToCart} type="button" className="goodsListItem__overflow__btn addCart" aria-label="Close"> */}
                     { changeAddIcon === 0 ? 
                         (
-                            <button style={{background: "none"}} onClick={addToCart} type="button" className="goodsListItem__overflow__btn addCart" aria-label="Close">
+                            <button disabled={cartStatus} style={{background: "none"}} onClick={addToCart} type="button" className="goodsListItem__overflow__btn addCart" aria-label="Close">
                                 <IcoAddCart className="addCart"/>
                             </button>
                         ) : (
                         
-                            <button style={{background: "var(--positive)"}} onClick={addToCart} type="button" className="goodsListItem__overflow__btn addCart" aria-label="Close">
+                            <button disabled={cartStatus} style={{background: "var(--positive)"}} onClick={addToCart} type="button" className="goodsListItem__overflow__btn addCart" aria-label="Close">
                                 <IcoCart className="addCart"/>
                                 <span className="addCart__counter">{changeAddIcon}</span> 
 

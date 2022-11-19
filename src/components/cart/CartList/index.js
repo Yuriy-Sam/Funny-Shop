@@ -3,14 +3,20 @@ import CartListItem from "../CartListItem";
 import { useSelector, useDispatch } from "react-redux";
 import {fetchCartItems, updateCartItemInData, removeCartItemInData, addCartCounter, removeCartCounter, cartItemDeleted } from "../../goods/goodsSlice";
 import { cartsListData } from "../../../data";
+import { useState } from "react";
 
 import { useEffect } from "react";
 
 
 const CartList = () => {
-    const {cartItems } = useSelector(state => state.goods);
+    const {cartItems, cartLoadingStatus } = useSelector(state => state.goods);
     const dispatch = useDispatch();
+    const [cartStatus, setCartStatus] = useState(false);
 
+
+    useEffect(() => {
+        setCartStatus(cartLoadingStatus === "loading")
+    }, [cartLoadingStatus]);
     
     useEffect(() => {
         
@@ -40,6 +46,7 @@ const CartList = () => {
                         addCartCounter={() => dispatch(updateCartItemInData({payload: {...newCartItem[0], counter: newCartItem[0].counter + 1 }, operation: "add"}))} 
                         removeCartCounter={() => dispatch(updateCartItemInData({payload: {...newCartItem[0], counter: newCartItem[0].counter - 1 }, operation: "remove"}))} 
                         key={id}  
+                        cartStatus={cartStatus}
                         
                         {...props}/>
                 </div>

@@ -1,6 +1,7 @@
 import Header from "../header";
 import GoodsList from "../goods/goodsList";
 import ShopFilters from "../filters/ShopFilters";
+import SortPanel from "../filters/SortPanel";
 import ErrorBoundary from "../errorBoundery/ErrorBoundery";
 
 
@@ -12,9 +13,15 @@ const ShopPage = () => {
                 <ErrorBoundary>
                     <ShopFilters/>
                 </ErrorBoundary>
-                <ErrorBoundary>
-                    <GoodsList/>    
-                </ErrorBoundary>
+                <div className="">
+                    <ErrorBoundary>
+                        <SortPanel/>    
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <GoodsList/>    
+                    </ErrorBoundary>
+                </div>
+
                 
                 
 

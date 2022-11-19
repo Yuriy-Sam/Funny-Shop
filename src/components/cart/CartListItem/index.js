@@ -1,10 +1,10 @@
 
-
+import { useState } from "react";
 import { useSelector,  } from "react-redux";
 
 import { SelectCurrencyPrice } from "../../goods/goodsListItem";
 
-const CartListItem = ({name, descr, img, price, sale, counter, removeCartCounter, addCartCounter, cartItemDeleted}) => {
+const CartListItem = ({name, descr, img, price, sale, counter, removeCartCounter, addCartCounter, cartItemDeleted, cartStatus}) => {
 
 
 
@@ -44,6 +44,19 @@ const CartListItem = ({name, descr, img, price, sale, counter, removeCartCounter
 
     //     }
     // }
+    // const [disabledClass, setDisabledClass] = useState('')
+
+    // const onDisabled = (value) => {
+    //     removeCartCounter
+
+    //     if(value){
+    //         setDisabledClass(" _disabled")
+    //     } else{
+    //         setDisabledClass("")
+
+    //     }
+    // }
+
 
     return (
         <>  <div className="cartListItem__img">
@@ -57,17 +70,17 @@ const CartListItem = ({name, descr, img, price, sale, counter, removeCartCounter
                 </div>
 
                 <div className="cartListItem__nav">
-                    <button   onClick={removeCartCounter} className="cartListItem__plus" disabled={counter === 0 ? true : false}><span>-</span></button>
+                    <button  onClick={removeCartCounter} className="cartListItem__plus" disabled={cartStatus || counter === 0 ? true : false }><span>-</span></button>
                     <div className="cartListItem__counter">{counter}</div>
                     {/* <input type="number" defaultValue={counter} onChange={(e) => counter = e.target.value } onCha /> */}
-                    <button onClick={addCartCounter} className="cartListItem__plus"><span>+</span></button>
+                    <button disabled={cartStatus}  onClick={addCartCounter} className="cartListItem__plus"><span>+</span></button>
                 </div>
                 <SalePrice/>
 
             
 
             </div>
-            <button onClick={cartItemDeleted} className="cartListItem__close">X</button>
+            <button disabled={cartStatus} onClick={cartItemDeleted} className="cartListItem__close">X</button>
 
 
         </>

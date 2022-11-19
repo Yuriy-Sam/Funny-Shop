@@ -1,7 +1,7 @@
 import MultiRangeSlider from "multi-range-slider-react";
 import { useState, useEffect} from "react";
 import { useDispatch, useSelector} from "react-redux";
-import { onfilteredGoods, fetchCategories} from "../../goods/goodsSlice"; 
+import {onSortFilteredGoods, onfilteredGoods, fetchCategories} from "../../goods/goodsSlice"; 
 import { SelectCurrencyPrice } from "../../goods/goodsListItem";
 import '../filters.scss'
 
@@ -17,7 +17,7 @@ import '../filters.scss'
 // }
 
 const ShopFilters = () => {
-    const {filterMinPrice, filterMaxInputPrice, categoryListItems, filterPriceLabels} = useSelector(state => state.goods);
+    const {sortName, filterMinPrice, filterMaxInputPrice, categoryListItems, filterPriceLabels} = useSelector(state => state.goods);
 
     const dispatch = useDispatch();
     const [minPrice, setMinPrice] = useState(0)
@@ -59,6 +59,7 @@ const ShopFilters = () => {
     const submitForm = (e) => {
         e.preventDefault();
         dispatch(onfilteredGoods({minPrice, maxPrice, searchText, categoriesItems}))
+        dispatch(onSortFilteredGoods(sortName))
     }
 
     function getCategoryList (arr){

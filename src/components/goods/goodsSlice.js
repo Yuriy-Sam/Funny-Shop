@@ -29,6 +29,7 @@ const initialState = {
 
 
     cartItems: cartsListData,
+    cartLoadingStatus: 'idle',
 
     // cartItems: [],
     cartCounter: 0,
@@ -38,8 +39,12 @@ const initialState = {
     favoriteItems: [],
     favoriteCounter: 0,
     favorite: false,
+    favoriteLoadingStatus: 'idle',
 
+
+    sortName: 'name',
     filteredGoods: [],
+    filteredGoodsCounter: 0,
     filterMinPrice: 0,
     filterMaxPrice: 1000,
     filterMaxInputPrice: 0,
@@ -163,6 +168,60 @@ const goodsSlice = createSlice({
             state.goodsSingle = {...state.goods.filter(item => item.id === action.payload ? item : null)[0]}
             console.log(state.goodsSingle, 'goodsSingle');
         },
+        onSortFilteredGoods: (state, action) => {
+            console.log('onSortFilteredGoods');
+            state.sortName = action.payload
+            
+            if(state.filteredGoods.length > 0){
+                
+                switch (state.sortName) {
+                    case 'nameAZ':
+                        state.filteredGoods.sort((a, b) => {
+                            const nameA = a.name.toUpperCase();
+                            const nameB = b.name.toUpperCase();
+                            if (nameA < nameB) {
+                              return -1;
+                            }
+                            if (nameA > nameB) {
+                              return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    case 'nameZA':
+                        state.filteredGoods.sort((a, b) => {
+                            const nameA = a.name.toUpperCase();
+                            const nameB = b.name.toUpperCase();
+                            if (nameA < nameB) {
+                                return 1;
+                            }
+                            if (nameA > nameB) {
+                                return -1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    case 'lowPrice':
+                        state.filteredGoods.sort((a, b) => {
+                            let AsalePrice = a.sale > 0 ? Math.floor(a.price - (a.price * (a.sale / 100))) : a.price
+                            let BsalePrice = b.sale > 0 ? Math.floor(b.price - (b.price * (b.sale / 100))) : b.price
+
+                            return AsalePrice - BsalePrice
+                        });
+                        break;
+                    case 'highPrice':
+                        state.filteredGoods.sort((a, b) => {
+                            let AsalePrice = a.sale > 0 ? Math.floor(a.price - (a.price * (a.sale / 100))) : a.price
+                            let BsalePrice = b.sale > 0 ? Math.floor(b.price - (b.price * (b.sale / 100))) : b.price
+
+                            return  BsalePrice - AsalePrice
+                        });
+                        break;
+                    default: break;
+                }
+                  
+            }
+        },
         onfilteredGoods: (state, action) => {
             state.filterMinPrice = action.payload.minPrice
             state.filterMaxPrice = action.payload.maxPrice
@@ -215,7 +274,8 @@ const goodsSlice = createSlice({
                     }
                 })
             }
-
+            state.filteredGoodsCounter = state.filteredGoods.length
+            
             console.log(state.filteredGoods, 'filteredGoods');
         },
         
@@ -227,6 +287,19 @@ const goodsSlice = createSlice({
                 state.goodsLoadingStatus = 'idle';
                 state.goods = action.payload;
                 state.filteredGoods = state.goods
+                state.filteredGoodsCounter = state.filteredGoods.length
+                state.filteredGoods.sort((a, b) => {
+                    const nameA = a.name.toUpperCase();
+                    const nameB = b.name.toUpperCase();
+                    if (nameA < nameB) {
+                      return -1;
+                    }
+                    if (nameA > nameB) {
+                      return 1;
+                    }
+                    return 0;
+                });
+
                 console.log(state.goods);
                 state.filterMaxInputPrice = Math.max(...state.goods.map(item => item.price))
                 console.log(state.filterMaxInputPrice, "state.filterMaxPrice");
@@ -255,7 +328,10 @@ const goodsSlice = createSlice({
                 state.favoriteItems = action.payload;
                 state.favoriteCounter = state.favoriteItems.length
             })
+            .addCase(addCartItemToData.pending, state => {state.cartLoadingStatus = 'loading'})
+
             .addCase(addCartItemToData.fulfilled, (state, action) => {
+                state.cartLoadingStatus = 'idle'
                 console.log(state, 'state, fulfilled');
                 console.log(action.payload.id, 'action, fulfilled')
                 state.cartItems = [...state.cartItems, action.payload];
@@ -265,7 +341,10 @@ const goodsSlice = createSlice({
                 state.cartCounter += 1; 
     
             })
+            .addCase(updateCartItemInData.pending, state => {state.cartLoadingStatus = 'loading'})
+
             .addCase(updateCartItemInData.fulfilled, (state, action) => {
+                state.cartLoadingStatus = 'idle'
                 state.cartItems = state.cartItems.map(item => {
                     
                     if(item.id === action.payload.id) {
@@ -291,21 +370,31 @@ const goodsSlice = createSlice({
                 
                 console.log("updateCartItemInData");
             })
+            .addCase(addFavoriteItemToData.pending, state => {state.favoriteLoadingStatus = 'loading'})
+
             .addCase(addFavoriteItemToData.fulfilled, (state, action) => {
+                state.favoriteLoadingStatus = 'idle'
                 state.favoriteItems = [...state.favoriteItems, action.payload]
 
                 state.favoriteCounter += 1
 
     
             })
+            .addCase(removeFavoriteItemToData.pending, state => {state.favoriteLoadingStatus = 'loading'})
+
             .addCase(removeFavoriteItemToData.fulfilled, (state, action) => {
+                state.favoriteLoadingStatus = 'idle'
+
                 state.favoriteItems = state.favoriteItems.filter(item => item.id !== action.meta.arg)
 
                 state.favoriteCounter = state.favoriteCounter - 1
 
     
             })
+            .addCase(removeCartItemInData.pending, state => {state.cartLoadingStatus = 'loading'})
+
             .addCase(removeCartItemInData.fulfilled, (state, action) => {
+                state.cartLoadingStatus = 'idle'
                 state.cartItems = state.cartItems.filter( item => {
                     if(item.id == action.meta.arg){
                         console.log(item, 'removeCartItem')
@@ -334,6 +423,7 @@ export const {
     changeName,
     selectCurrency,
     onfilteredGoods,
+    onSortFilteredGoods,
     getSingleGoods,
 
 } = actions;
