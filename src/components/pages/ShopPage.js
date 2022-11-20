@@ -13,7 +13,7 @@ const ShopPage = () => {
                 <ErrorBoundary>
                     <ShopFilters/>
                 </ErrorBoundary>
-                <div className="">
+                <div style={{width: "100%" }} className="">
                     <ErrorBoundary>
                         <SortPanel/>    
                     </ErrorBoundary>

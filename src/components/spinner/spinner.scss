@@ -1,0 +1,33 @@
+.spinner {
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    background-color: var(--accent);
+    border-radius: none;
+    transition: all 1s;
+    animation: spinner 1.5s infinite ease-in-out;
+    margin: 40px auto;
+  }
+  
+  @keyframes spinner {
+    0% {
+      transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+      background-color: var(--accent);
+      border-radius: 0%;
+
+
+    }
+    50% {
+      transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+      background-color: var(--positive);
+      border-radius: 20%;
+
+    }
+    100% {
+      transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+      background-color: var(--negative);
+      border-radius: 100%;
+
+
+    }
+  }
