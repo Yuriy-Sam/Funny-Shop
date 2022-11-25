@@ -1,8 +1,9 @@
 
 import { Link } from "react-router-dom";
-import { useSelector, } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import { useState, useEffect, useMemo } from "react";
 import {IcoLike, IcoAddLike, IcoAddCart, IcoCart } from "../../../resources/icons/iconsSVG";
+import {changeShowImg} from '../goodsSlice';
 import cartbox from '../../../resources/img/cardboard.jpg'
 
 import "./goodsListItem.scss"
@@ -22,7 +23,7 @@ export const SelectCurrencyPrice = (price, counter) => {
         
     }
 };
-const GoodsListItem = ({name, descr, img, price, sale, addToCart, changeFavoriteIcon, changeAddIcon, favoriteItemCreated, getGoodsId, favoriteStatus, cartStatus}) => {
+const GoodsListItem = ({showImg, name, descr, images, img, price, sale, addToCart, changeFavoriteIcon, changeAddIcon, favoriteItemCreated, getGoodsId, favoriteStatus, cartStatus}) => {
 
     const [added, setAdded] = useState(changeAddIcon);
     // switch (element) {
@@ -41,8 +42,28 @@ const GoodsListItem = ({name, descr, img, price, sale, addToCart, changeFavorite
     //     default:
     //         elementClassName = 'bg-warning bg-gradient';
     // }
+    const dispatch = useDispatch();
 
+    const subImageBlock = () => {
+        let imgClasses = images.filter(item => item.id === showImg ? item : null)[0].class
+        return (
+            <div className={"goodsListItem__img__block " + imgClasses}>
+                <img src={images.filter(item => item.id === showImg ? item : null)[0].src} 
+                    className="goodsListItem__img main_img"
+                    alt={name}/>
+                <div className="goodsListItem__img__list">
+                    {images.map(item => (
+                        <button onClick={() => dispatch(changeShowImg({goodsId: getGoodsId, imageId: item.id}))} className={item.id === showImg ? "goodsListItem__img__list__item _active" : 'goodsListItem__img__list__item'}>
+                            <img src={item.src} 
+                            className="goodsListItem__img" 
+                            alt={name}/>
+                        </button>
+                    ))}
 
+                </div>
+            </div>
+        )
+    }
     const SalePrice = () => {
         let defaultPrice = SelectCurrencyPrice(price, 1);
         
@@ -69,11 +90,7 @@ const GoodsListItem = ({name, descr, img, price, sale, addToCart, changeFavorite
     return (
         <li className="goodsListItem">
             
-            <div className="goodsListItem__img__block">
-                <img src={img} 
-                    className="goodsListItem__img" 
-                    alt={name}/>
-            </div>
+            {subImageBlock()}
 
             <div className="goodsListItem__body">
                 <div className="goodsListItem__content">

@@ -35,6 +35,7 @@ const initialState = {
     cartCounter: 0,
     newCartItem: [],
     totalPrice: 0,
+    totalPriceHeader: 0,
 
     favoriteItems: [],
     favoriteCounter: 0,
@@ -168,6 +169,23 @@ const goodsSlice = createSlice({
             state.goodsSingle = {...state.goods.filter(item => item.id === action.payload ? item : null)[0]}
             console.log(state.goodsSingle, 'goodsSingle');
         },
+        // showTotalPriceHeader: (state, action) => {
+        //     state.totalPriceHeader = action.payload;
+        //     console.log(state.totalPriceHeader);
+
+        // },
+        changeShowImg: (state, action) => {
+            state.filteredGoods = state.filteredGoods.map(item => {
+                if(item.id === action.payload.goodsId){
+                    return {...item, showImg: action.payload.imageId}
+                } else {
+                    return item
+                }
+
+            })
+
+
+        },
         onSortFilteredGoods: (state, action) => {
             console.log('onSortFilteredGoods');
             state.sortName = action.payload
@@ -299,9 +317,10 @@ const goodsSlice = createSlice({
                     }
                     return 0;
                 });
-
+                state.filteredGoods = state.filteredGoods.map(item => ({...item, showImg: item.images[0].id}))
                 console.log(state.goods);
                 state.filterMaxInputPrice = Math.max(...state.goods.map(item => item.price))
+
                 console.log(state.filterMaxInputPrice, "state.filterMaxPrice");
             })
             .addCase(fetchGoods.rejected, state => {
@@ -332,11 +351,15 @@ const goodsSlice = createSlice({
 
             .addCase(addCartItemToData.fulfilled, (state, action) => {
                 state.cartLoadingStatus = 'idle'
-                console.log(state, 'state, fulfilled');
-                console.log(action.payload.id, 'action, fulfilled')
                 state.cartItems = [...state.cartItems, action.payload];
                 state.totalPrice +=  action.payload.sale > 0 ? Math.floor(+action.payload.price  - (+action.payload.price  * (action.payload.sale / 100))) : +action.payload.price;
                 console.log(state.totalPrice, 'state.totalPrice addCartItemToData');
+                
+                state.totalPriceHeader = 1;
+                // setTimeout(() => {
+                //     state.totalPriceHeader = 0
+                // }, 3000)
+                // clearTimeout(i)
 
                 state.cartCounter += 1; 
     
@@ -425,5 +448,7 @@ export const {
     onfilteredGoods,
     onSortFilteredGoods,
     getSingleGoods,
+    showTotalPriceHeader,
+    changeShowImg,
 
 } = actions;

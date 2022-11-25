@@ -6,7 +6,7 @@ import { CSSTransition, TransitionGroup} from 'react-transition-group';
 // import { createSelector } from '@reduxjs/toolkit';
 import Spinner from '../../spinner/Spinner';
 
-import {removeFavoriteItemToData, fetchFavoriteItems, addFavoriteItemToData, addCartItemToData, updateCartItemInData, fetchCartItems, fetchGoods, fetchCurrencyApi, cartItemCreated, showAddCounter, addCartItem, favoriteItemCreated } from '../goodsSlice';
+import {changeShowImg, showTotalPriceHeader, removeFavoriteItemToData, fetchFavoriteItems, addFavoriteItemToData, addCartItemToData, updateCartItemInData, fetchCartItems, fetchGoods} from '../goodsSlice';
 import GoodsListItem from "../goodsListItem";
 
 // import Spinner from '../spinner/Spinner';
@@ -75,7 +75,10 @@ const GoodsList = () => {
         } else {
             dispatch(updateCartItemInData({payload: {...newCartItem[0], counter: cartItems.filter(item => item.id === id)[0].counter + 1 }, operation: "add"}))
         }
-
+        // dispatch(showTotalPriceHeader(true));
+        // setTimeout(() => {
+        //     console.log("after 2s");
+        // }, 2000)
 
     }
     const favoriteItemCreated = (id) => {

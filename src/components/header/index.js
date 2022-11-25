@@ -1,20 +1,32 @@
 import { selectCurrency } from "../goods/goodsSlice";
-import { useEffect } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
 
 import { IcoLike, IcoCart, IcoShop } from "../../resources/icons/iconsSVG";
-
+import { SelectCurrencyPrice } from "../goods/goodsListItem";
+import useTimeout from "../../hooks/useTimeout";
 
 import Select from 'react-select';
 import "./header.scss";
 
 
+
 const Header = () => {
     
     const dispatch = useDispatch();
-    const {goodsCurrency, cartCounter, favoriteCounter, userName} = useSelector(state => state.goods);
+    const {totalPriceHeader, totalPrice, goodsCurrency, cartCounter, favoriteCounter, userName} = useSelector(state => state.goods);
+    const [showTotal, setShowTotal] = useState(totalPriceHeader);
+    // useEffect(() => {
+    //     
+    // }, [totalPriceHeader])
+    // const onshowTotal = () => {
+    //     setShowTotal(true);
+    // useTimeout(() => setShowTotal(true), 1000)
+        
+    // }
+
 
     const options = [
         { value: 'USD', label: 'USD' },
@@ -71,6 +83,15 @@ const Header = () => {
                         {
                             cartCounter > 0 ? <span className="header__icons__counter">{cartCounter}</span> : null
                         }
+                        {
+                            showTotal ? (
+                                <div className="header__cart__total">
+                                    <div className="header__cart__total__title">Total price</div>
+                                    <div className="header__cart__total__value">{SelectCurrencyPrice(totalPrice, 1)}</div>
+                                </div>
+                            ) : null
+                        }
+
 
                     </Link>
                     <div className="header__profile">Welcome, {userName.length > 0 ? userName : "User"}!</div>
