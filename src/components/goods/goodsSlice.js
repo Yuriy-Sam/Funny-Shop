@@ -175,7 +175,7 @@ const goodsSlice = createSlice({
 
         // },
         changeShowImg: (state, action) => {
-            state.goods = state.goods.map(item => {
+            state.filteredGoods = state.filteredGoods.map(item => {
                 if(item.id === action.payload.goodsId){
                     return {...item, showImg: action.payload.imageId}
                 } else {
@@ -183,7 +183,7 @@ const goodsSlice = createSlice({
                 }
 
             })
-            state.filteredGoods = state.goods
+            // state.filteredGoods = state.goods
 
 
         },
