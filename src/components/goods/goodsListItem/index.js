@@ -45,7 +45,7 @@ const GoodsListItem = ({showImg, name, descr, images, img, price, sale, addToCar
     const dispatch = useDispatch();
 
     const subImageBlock = () => {
-        let imgArray = {...images.map(item => item.id === showImg ? item : null)}[0]
+        let imgArray = {...images.filter(item => item.id === showImg)}[0]
         return (
             <div className={"goodsListItem__img__block " + imgArray.classes}>
                 <img src={imgArray.imageUrl} 

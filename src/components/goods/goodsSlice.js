@@ -175,7 +175,7 @@ const goodsSlice = createSlice({
 
         // },
         changeShowImg: (state, action) => {
-            state.filteredGoods = state.filteredGoods.map(item => {
+            state.goods = state.goods.map(item => {
                 if(item.id === action.payload.goodsId){
                     return {...item, showImg: action.payload.imageId}
                 } else {
@@ -183,6 +183,7 @@ const goodsSlice = createSlice({
                 }
 
             })
+            state.filteredGoods = state.goods
 
 
         },
@@ -249,7 +250,7 @@ const goodsSlice = createSlice({
             categoriesItems = action.payload.categoriesItems
             console.log(categoriesItems, "categoriesItems");
             if(state.goods.length > 0){
-                state.filteredGoods = state.filteredGoods.filter(item => {
+                state.filteredGoods = state.goods.filter(item => {
                     let salePrice = item.sale > 0 ? Math.floor(item.price - (item.price * (item.sale / 100))) : item.price
                     function CurentyPrice (price) {
 
@@ -303,7 +304,7 @@ const goodsSlice = createSlice({
             .addCase(fetchGoods.pending, state => {state.goodsLoadingStatus = 'loading'})
             .addCase(fetchGoods.fulfilled, (state, action) => {
                 state.goodsLoadingStatus = 'idle';
-                state.goods = action.payload;
+                state.goods = action.payload.map(item => ({...item, showImg: item.images[0].id}))
                 state.filteredGoods = state.goods
                 state.filteredGoodsCounter = state.filteredGoods.length
                 state.filteredGoods.sort((a, b) => {
@@ -317,7 +318,7 @@ const goodsSlice = createSlice({
                     }
                     return 0;
                 });
-                state.filteredGoods = state.filteredGoods.map(item => ({...item, showImg: item.images[0].id}))
+
                 console.log(state.goods);
                 state.filterMaxInputPrice = Math.max(...state.goods.map(item => item.price))
 
