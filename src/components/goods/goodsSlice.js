@@ -356,10 +356,12 @@ const goodsSlice = createSlice({
                 state.totalPrice +=  action.payload.sale > 0 ? Math.floor(+action.payload.price  - (+action.payload.price  * (action.payload.sale / 100))) : +action.payload.price;
                 console.log(state.totalPrice, 'state.totalPrice addCartItemToData');
                 
-                state.totalPriceHeader = 1;
-                // setTimeout(() => {
+                // state.totalPriceHeader = state.totalPriceHeader + 1;
+                // let timeout = setTimeout(() => {
                 //     state.totalPriceHeader = 0
+                    
                 // }, 3000)
+                // clearTimeout(timeout)
                 // clearTimeout(i)
 
                 state.cartCounter += 1; 

@@ -42,6 +42,8 @@ const GoodsListItem = ({showImg, name, descr, images, img, price, sale, addToCar
     //     default:
     //         elementClassName = 'bg-warning bg-gradient';
     // }
+
+
     const dispatch = useDispatch();
 
     const subImageBlock = () => {
@@ -53,7 +55,7 @@ const GoodsListItem = ({showImg, name, descr, images, img, price, sale, addToCar
                     alt={name}/>
                 <div className="goodsListItem__img__list">
                     {images.map(item => (
-                        <button onClick={() => dispatch(changeShowImg({goodsId: getGoodsId, imageId: item.id}))} className={item.id === showImg ? "goodsListItem__img__list__item _active" : 'goodsListItem__img__list__item'}>
+                        <button key={item.id} onClick={() => dispatch(changeShowImg({goodsId: getGoodsId, imageId: item.id}))} className={item.id === showImg ? "goodsListItem__img__list__item _active" : 'goodsListItem__img__list__item'}>
                             <img src={item.imageUrl} 
                             className="goodsListItem__img" 
                             alt={name}/>

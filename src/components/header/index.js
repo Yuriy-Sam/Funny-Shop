@@ -17,7 +17,8 @@ const Header = () => {
     
     const dispatch = useDispatch();
     const {totalPriceHeader, totalPrice, goodsCurrency, cartCounter, favoriteCounter, userName} = useSelector(state => state.goods);
-    const [showTotal, setShowTotal] = useState(totalPriceHeader);
+    // const [showTotal, setShowTotal] = useState(false);
+    let showTotal = false
     // useEffect(() => {
     //     
     // }, [totalPriceHeader])
@@ -26,6 +27,14 @@ const Header = () => {
     // useTimeout(() => setShowTotal(true), 1000)
         
     // }
+
+    // useEffect(() => {
+    //     showTotal = true
+    //     const timeout = setTimeout(() => {
+    //         showTotal = false
+    //     }, 1000);
+    //     return () => clearTimeout(timeout);
+    // }, [totalPriceHeader]);
 
 
     const options = [
