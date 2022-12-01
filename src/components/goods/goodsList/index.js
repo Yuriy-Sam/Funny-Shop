@@ -110,6 +110,7 @@ const GoodsList = () => {
     }
     const renderGoodsList = (arr) => {
         console.log('renderGoodsList');
+        console.log(arr, 'arrrrr');
 
         if (arr.length === 0) {
             return (

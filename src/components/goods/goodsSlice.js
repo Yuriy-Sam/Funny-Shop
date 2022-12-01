@@ -249,7 +249,7 @@ const goodsSlice = createSlice({
             categoriesItems = action.payload.categoriesItems
             console.log(categoriesItems, "categoriesItems");
             if(state.goods.length > 0){
-                state.filteredGoods = state.goods.filter(item => {
+                state.filteredGoods = state.filteredGoods.filter(item => {
                     let salePrice = item.sale > 0 ? Math.floor(item.price - (item.price * (item.sale / 100))) : item.price
                     function CurentyPrice (price) {
 

@@ -45,16 +45,16 @@ const GoodsListItem = ({showImg, name, descr, images, img, price, sale, addToCar
     const dispatch = useDispatch();
 
     const subImageBlock = () => {
-        let imgClasses = images.filter(item => item.id === showImg ? item : null)[0].class
+        let imgArray = {...images.map(item => item.id === showImg ? item : null)}[0]
         return (
-            <div className={"goodsListItem__img__block " + imgClasses}>
-                <img src={images.filter(item => item.id === showImg ? item : null)[0].src} 
+            <div className={"goodsListItem__img__block " + imgArray.classes}>
+                <img src={imgArray.imageUrl} 
                     className="goodsListItem__img main_img"
                     alt={name}/>
                 <div className="goodsListItem__img__list">
                     {images.map(item => (
                         <button onClick={() => dispatch(changeShowImg({goodsId: getGoodsId, imageId: item.id}))} className={item.id === showImg ? "goodsListItem__img__list__item _active" : 'goodsListItem__img__list__item'}>
-                            <img src={item.src} 
+                            <img src={item.imageUrl} 
                             className="goodsListItem__img" 
                             alt={name}/>
                         </button>
